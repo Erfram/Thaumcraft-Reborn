@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "thaumcraft",
+	"version": "${version}",
+
+	"name": "Thaumcraft Reborn",
+	"description": "This mod is a remake of the thaumcraft mod for newer versions",
+	"authors": [
+		"llama"
+	],
+	"contact": {
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/thaumcraft/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"llama.thaumcraft.Thaumcraft"
+		],
+		"client": [
+			"llama.thaumcraft.ThaumcraftClient"
+		]
+	},
+	"mixins": [
+		"thaumcraft.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
