@@ -10,19 +10,19 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class ModItems {
-    public static final Item RUBY = registerItem("ruby", new Item(new FabricItemSettings()));
+public class ThaumcraftItems {
+    public static final Item CRYSTAL = registerItem("crystal", new Item(new FabricItemSettings()));
 
     private static Item registerItem(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(Thaumcraft.MOD_ID, id), item);
     }
 
     private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) {
-        entries.add(RUBY);
+        entries.add(CRYSTAL);
     }
     public static void register() {
         Thaumcraft.LOGGER.debug("Registering items for: "+Thaumcraft.MOD_NAME);
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addItemsToIngredientItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ThaumcraftItems::addItemsToIngredientItemGroup);
     }
 }

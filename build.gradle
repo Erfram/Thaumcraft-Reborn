@@ -11,34 +11,11 @@ base {
 }
 
 repositories {
-	maven {
-		name = 'GeckoLib'
-		url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-	}
-
-	maven {
-		url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
-		content {
-			includeGroup "com.klikli_dev"
-		}
-	}
-
-	maven {
-		name "KosmX's maven"
-		url 'https://maven.kosmx.dev/'
-	}
-}
-
-loom {
-	splitEnvironmentSourceSets()
-
-	mods {
-		"thaumcraft" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-
+	// Add repositories to retrieve artifacts from in here.
+	// You should only use this when depending on other mods because
+	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
+	// for more information about repositories.
 }
 
 fabricApi {
@@ -49,10 +26,6 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	modImplementation "software.bernie.geckolib:geckolib-fabric-1.20.1:${project.geckolib_version}"
-	modImplementation "com.klikli_dev:modonomicon-${minecraft_version}-fabric:${modonomicon_version}"
-
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
