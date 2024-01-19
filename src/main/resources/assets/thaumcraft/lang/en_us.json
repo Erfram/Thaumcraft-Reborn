@@ -1,4 +1,13 @@
 {
+  "thaumcraft.itemgroup.thaumcraft": "Thaumcraft",
+
   "item.thaumcraft.crystal": "Vis-crystal %s",
-  "thaumcraft.itemgroup.thaumcraft": "Thaumcraft"
+  "item.thaumcraft.crystal.tooltip": "%s x1",
+  "item.thaumcraft.thaumonomicon": "Thaumonomicon",
+  "item.thaumcraft.thaumonomicon.tooltip": "An ancient manuscript containing knowledge of..",
+
+  "book.thaumcraft.thaumonomicon.name": "Thaumonomicon",
+  "book.thaumcraft.thaumonomicon.tooltip": "An ancient manuscript containing knowledge of..",
+
+  "book.thaumcraft.thaumonomicon.basic.name": "Basics"
 }
