@@ -2,6 +2,7 @@ package llama.thaumcraft.items;
 
 import llama.thaumcraft.Aspects;
 import llama.thaumcraft.Thaumcraft;
+import llama.thaumcraft.blocks.ThaumcraftBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,9 @@ public class ThaumcraftItemGroups {
         new Identifier(Thaumcraft.MOD_ID, "thaumcraft"),
         FabricItemGroup.builder().displayName(Text.translatable("thaumcraft.itemgroup.thaumcraft"))
             .icon(() -> new ItemStack(ThaumcraftItems.CRYSTAL)).entries((displayContext, entries) -> {
-                entries.add(ThaumcraftItems.THAUMONOMICON);
+                entries.add(((ThaumonomiconItem) ThaumcraftItems.THAUMONOMICON).getCreativeModeTabDisplayStack());
+                entries.add(ThaumcraftItems.SALIS_MUNDUS);
+                entries.add(ThaumcraftBlocks.CRUCIBLE);
 
                 for(Aspects aspect : Aspects.values()) {
                     entries.add(CrystalHelper.create(aspect));

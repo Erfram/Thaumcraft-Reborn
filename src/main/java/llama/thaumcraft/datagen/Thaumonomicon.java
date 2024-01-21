@@ -4,7 +4,8 @@ import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import llama.thaumcraft.Thaumcraft;
-import llama.thaumcraft.datagen.category.BasicCategoryProvider;
+import llama.thaumcraft.datagen.category.BasicsCategoryProvider;
+import llama.thaumcraft.items.ThaumcraftItemGroups;
 import net.minecraft.data.DataOutput;
 import net.minecraft.util.Identifier;
 
@@ -30,14 +31,13 @@ public class Thaumonomicon extends BookProvider {
         this.lang().add(this.context().bookName(), "thaumonomicon");
         this.lang().add(this.context().bookTooltip(), "An ancient manuscript containing knowledge of..");
 
-        var featuresCategory = new BasicCategoryProvider(this).generate();
+        var BasicsCategory = new BasicsCategoryProvider(this).generate();
 
         return BookModel.create(this.modLoc("thaumonomicon"), this.context().bookName())
-            .withTooltip(this.context().bookTooltip())
             .withModel(new Identifier(Thaumcraft.MOD_ID, "thaumonomicon"))
-            .withBookTextOffsetX(5)
-            .withBookTextOffsetY(0)
-            .withBookTextOffsetWidth(-5)
-            .withCategories(featuresCategory);
+            .withTooltip(this.context().bookTooltip())
+            .withCategories(BasicsCategory)
+            .withGenerateBookItem(false)
+            .withCustomBookItem(this.modLoc("thaumonomicon"));
     }
 }

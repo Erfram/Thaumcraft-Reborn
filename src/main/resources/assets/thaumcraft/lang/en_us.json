@@ -5,6 +5,10 @@
   "item.thaumcraft.crystal.tooltip": "%s x1",
   "item.thaumcraft.thaumonomicon": "Thaumonomicon",
   "item.thaumcraft.thaumonomicon.tooltip": "An ancient manuscript containing knowledge of..",
+  "item.thaumcraft.salis_mundus": "Salis Mundus",
+  "item.thaumcraft.salis_mundus.tooltip": "Salty?",
+
+  "block.thaumcraft.crucible": "Crucible",
 
   "book.thaumcraft.thaumonomicon.name": "Thaumonomicon",
   "book.thaumcraft.thaumonomicon.tooltip": "An ancient manuscript containing knowledge of..",

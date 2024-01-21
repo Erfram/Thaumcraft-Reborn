@@ -15,7 +15,6 @@ public class ThaumcraftDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ThaumcraftItemTagProvider::new);
 
 		var enUsCache = new LanguageProviderCache("en_us");
-
 		pack.addProvider((FabricDataOutput output) -> new Thaumonomicon("thaumonomicon", output, Thaumcraft.MOD_ID, enUsCache));
 	}
 }

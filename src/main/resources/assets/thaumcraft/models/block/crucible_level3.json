@@ -1,0 +1,9 @@
+{
+  "parent": "thaumcraft:custom/crucible_level3",
+  "texture_size": [64, 64],
+  "textures": {
+    "0": "thaumcraft:block/crucible",
+    "1": "minecraft:block/water_still",
+    "particle": "minecraft:block/cauldron_side"
+  }
+}

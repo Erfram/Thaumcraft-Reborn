@@ -5,6 +5,10 @@
   "item.thaumcraft.crystal.tooltip": "%s x1",
   "item.thaumcraft.thaumonomicon": "Thaumonomicon",
   "item.thaumcraft.thaumonomicon.tooltip": "An ancient manuscript containing knowledge of..",
+  "item.thaumcraft.salis_mundus": "Салис Мундус",
+  "item.thaumcraft.salis_mundus.tooltip": "Оно солёное?",
+
+  "block.thaumcraft.crucible": "Тигель",
 
   "book.thaumcraft.thaumonomicon.name": "Таумономикон",
   "book.thaumcraft.thaumonomicon.tooltip": "Древний манускрипт, содержащий знания..",

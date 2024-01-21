@@ -1,0 +1,8 @@
+{
+  "parent": "thaumcraft:custom/crucible",
+  "texture_size": [64, 64],
+  "textures": {
+    "0": "thaumcraft:block/crucible",
+    "particle": "minecraft:block/cauldron_side"
+  }
+}

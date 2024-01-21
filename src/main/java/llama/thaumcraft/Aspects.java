@@ -4,76 +4,49 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Aspects {
-    AER("aer", 16777086, null), //ВОЗДУХ
-    TERRA("terra", 5685248, null), //ЗЕМЛЯ
-    AQUA("aqua", 3986684, null), //ВОДА
-    IGNIS("ignis", 16734721, null), //ЗЕМЛЯ
-    ORDO("ordo", 14013676, null), //ПОРЯДОК
-    PERDITIO("perditio", 4210752, null), //ХАОС
+    AER("aer", 0xFFFF7E, null), //ВОЗДУХ
+    TERRA("terra", 0x56C000, null), //ЗЕМЛЯ
+    IGNIS("ignis", 0xFF5A01, null), //ЗЕМЛЯ
+    AQUA("aqua", 0x3CD4FC, null), //ВОДА
+    ORDO("ordo", 0xD5D4EC, null), //ПОРЯДОК
+    PERDITIO("perditio", 0x404040, null), //ХАОС
 
     //--------
 
-    GELUM("gelum", 14811135, Arrays.asList(IGNIS, PERDITIO)), //ХОЛОД
-    LUX("lux", 16777152, Arrays.asList(AER, IGNIS)), //СВЕТ
-    MOTUS("motus", 13487348, Arrays.asList(AER, ORDO)), //ДВИЖЕНИЕ
-    PERMUTATIO("permutatio", 5735255, Arrays.asList(ORDO, PERDITIO)), //КРУГОВОРОТ
-    POTENTIA("potentia", 12648447, Arrays.asList(IGNIS, ORDO)), //СИЛА
-    TEMPESTAS("tempestas", 16775920, Arrays.asList(AER, AQUA)), //ПОГОДА
-    VACOUS("vacous", 8947848, Arrays.asList(AER, PERDITIO)), //ПУСТОТА
-    VENENUM("venenum", 8190976, Arrays.asList(AQUA, PERDITIO)), //ЯД
-    VICTUS("victus", 14548997, Arrays.asList(AQUA, TERRA)), //ЖИЗНЬ
-    VITREUS("vitreus", 8454143, Arrays.asList(ORDO, TERRA)), //КРИСТАЛЛ/СТЕКЛО
-
-    //--------
-
-    BESTIA("bestia", 10445833, Arrays.asList(MOTUS, VICTUS)), //ЖИВОТНОЕ/ЖИВОЕ
-    FAMES("fames", 9109504, Arrays.asList(VACOUS, VICTUS)), //ГОЛОД
-    HERBA("herba", 109568, Arrays.asList(TERRA, VICTUS)), //ЗАРОЖДЕНИЕ
-    ITER("iter", 15422084, Arrays.asList(MOTUS, TERRA)), //СТРАНСТВИЕ
-    LIMUS("limus", 3459364, Arrays.asList(AQUA, VICTUS)), //ВЯЗКОСТЬ/СЛИЗЬ
-    METALLUM("metallum", 11908557, Arrays.asList(TERRA, VITREUS)), //МЕТАЛЛ
-    MORTUS("mortus", 6946821, Arrays.asList(PERDITIO, VICTUS)), //СМЕРТЬ
-    PRAECANTATIO("praecantatio", 13566207, Arrays.asList(POTENTIA, VACOUS)), //МАГИЯ
-    SANO("sano", 9568266, Arrays.asList(ORDO, VICTUS)), //ЛЕЧЕНИЕ
-    TENEBRAE("tenebrae", 2236962, Arrays.asList(LUX, VACOUS)), //ТЬМА
-    VINCULUM("vinculum", 10125440, Arrays.asList(MOTUS, PERDITIO)), //ЛОВУШКА
-    VOLATUS("volatus", 15198167, Arrays.asList(AER, MOTUS)), //ПОЛЁТ
-
-    //--------
-
-    ALIENIS("alienis", 8409216, Arrays.asList(TENEBRAE, VACOUS)), //ЧУЖОЙ
-    ARBOR("arbor", 7553570, Arrays.asList(AER, HERBA)), //ДРЕВЕСИНА
-    AURAM("auram", 16761087, Arrays.asList(AER, PRAECANTATIO)), //АУРА
-    CORPUS("corpus", 16525383, Arrays.asList(AER, PRAECANTATIO)), //ПЛОТЬ
-    EXANIMIS("exanimis", 3817472, Arrays.asList(MORTUS, MOTUS)), //БЕССИЛЬНЫЙ
-    SPIRITUS("spiritus", 15461371 , Arrays.asList(MORTUS, VICTUS)), //ДУША
-    VITIUM("vitium", 8388736, Arrays.asList(PERDITIO, PRAECANTATIO)), //ИНФЕКЦИЯ
-
-    //--------
-
-    COGNITIO("cognitio", 16356991, Arrays.asList(IGNIS, SPIRITUS)), //ПОЗНАНИЕ
-    SENSUS("sensus", 12648384, Arrays.asList(AER, SPIRITUS)), //ОСЯЗАНИЕ
-
-    //--------
-
-    HUMANUS("humanus", 16766912, Arrays.asList(BESTIA, COGNITIO)), //ЧЕЛОВЕК
-
-    //--------
-
-    INSTRUMENTUM("instrumentum", 4210926, Arrays.asList(HUMANUS, ORDO)), //ИНСТРУМЕНТ
-    LUCRUM("lucrum", 14139945, Arrays.asList(FAMES, HUMANUS)), //АЛЧНОСТЬ
-    MESSIS("messis", 12687979, Arrays.asList(HERBA, HUMANUS)), //УРОЖАЙ
-    PERFODIO("perfodio", 14474460, Arrays.asList(HUMANUS, TERRA)), //ДОБЫЧА
-
-
-    //--------
-
-    FABRICO("fabrico", 8428928, Arrays.asList(HUMANUS, INSTRUMENTUM)), //СОЗДАНИЕ
-    MACHINA("machina", 8421536, Arrays.asList(INSTRUMENTUM, MOTUS)), //МЕХАНИЗМ
-    METO("meto", 11220026, Arrays.asList(INSTRUMENTUM, MESSIS)), //СБОР/ЖАТВА
-    PANNUS("pannus", 16769719, Arrays.asList(BESTIA, INSTRUMENTUM)), //ТКАНЬ/МАТЕРИАЛ
-    TELUM("telum", 13508649, Arrays.asList(INSTRUMENTUM, IGNIS)), //ВРЕД
-    TUTAMEN("tutamen", 7855591, Arrays.asList(INSTRUMENTUM, TERRA)); //ЗАЩИТА
+    VACOUS("vacous", 0x888888, Arrays.asList(AER, PERDITIO)), //ПУСТОТА
+    LUX("lux", 0xFFFFC0, Arrays.asList(AER, IGNIS)), //СВЕТ
+    MOTUS("motus", 0xCDCCF4, Arrays.asList(AER, ORDO)), //ДВИЖЕНИЕ
+    GELUM("gelum", 0xE1FFFF, Arrays.asList(IGNIS, PERDITIO)), //ХОЛОД
+    VITREUS("vitreus", 0x80FFD7, Arrays.asList(TERRA, AER)), //КРИСТАЛЛ/СТЕКЛО
+    METALLUM("metallum", 0xFFFAFA, Arrays.asList(TERRA, ORDO)), //МЕТАЛЛ
+    VICTUS("victus", 0x951214, Arrays.asList(TERRA, AQUA)), //ЖИЗНЬ
+    MORTUS("mortus", 0x960000, Arrays.asList(VICTUS, PERDITIO)), //СМЕРТЬ
+    POTENTIA("potentia", 0x8CD5CD, Arrays.asList(ORDO, IGNIS)), //СИЛА
+    PERMUTATIO("permutatio", 0xDC69DE, Arrays.asList(PERDITIO, ORDO)), //КРУГОВОРОТ
+    PRAECANTATIO("praecantatio", 0xD2B30F, Arrays.asList(POTENTIA, AER)), //МАГИЯ
+    AURAM("auram", 0x66216E, Arrays.asList(PRAECANTATIO, AER)), //АУРА
+    ALKIMIA("alkimia", 0x1E363F, Arrays.asList(PRAECANTATIO, AQUA)), //АЛХИМИЯ
+    VITIUM("vitium", 0x66216E, Arrays.asList(PERDITIO, PRAECANTATIO)), //ИНФЕКЦИЯ
+    TENEBRAE("tenebrae", 0x1E1C22, Arrays.asList(VACOUS, LUX)), //ТЬМА
+    ALIENIS("alienis", 0x523B71, Arrays.asList(TENEBRAE, VACOUS)), //ЧУЖОЙ
+    VOLATUS("volatus", 0xF8F4FF, Arrays.asList(AER, MOTUS)), //ПОЛЁТ
+    HERBA("herba", 0x1B911B, Arrays.asList(VICTUS, TERRA)), //ЗАРОЖДЕНИЕ
+    INSTRUMENTUM("instrumentum", 0x1F32AA, Arrays.asList(METALLUM, POTENTIA)), //ИНСТРУМЕНТ
+    FABRICO("fabrico", 0x589263, Arrays.asList(PERMUTATIO, INSTRUMENTUM)), //СОЗДАНИЕ
+    MACHINA("machina", 0x465356, Arrays.asList(MOTUS, INSTRUMENTUM)), //МЕХАНИЗМ
+    VINCULUM("vinculum", 0x968A6F, Arrays.asList(MOTUS, PERDITIO)), //ЛОВУШКА
+    SPIRITUS("spiritus", 0x434b4f, Arrays.asList(VICTUS, MORTUS)), //ДУША
+    COGNITIO("cognitio", 0xFFCB8F, Arrays.asList(IGNIS, SPIRITUS)), //ПОЗНАНИЕ
+    SENSUS("sensus", 0xC4fDC3, Arrays.asList(AER, SPIRITUS)), //ОСЯЗАНИЕ
+    AVERSIO("aversio", 0x00BFBD, Arrays.asList(SPIRITUS, PERDITIO)), //ВРЕД
+    PRAEMUNIO("praemunio", 0x77DDEE, Arrays.asList(SPIRITUS, TERRA)), //ЗАЩИТА
+    DESIDERIUM("desiderium", 0xE1BD47, Arrays.asList(SPIRITUS, VACOUS)), //АЛЧНОСТЬ
+    EXANIMIS("exanimis", 0x3a4000, Arrays.asList(MOTUS, MORTUS)), //НЕЖИТЬ
+    BESTIA("bestia", 0xA0620E, Arrays.asList(MOTUS, VICTUS)), //ЖИВОТНОЕ/ЖИВОЕ
+    HUMANUS("humanus", 0xFDD8C4, Arrays.asList(SPIRITUS, VICTUS)), //ЧЕЛОВЕК
+    ECHO("echo", 0x052730, Arrays.asList(VACOUS, ALIENIS)), //ЭХО
+    INFERNO("inferno", 0x880808, Arrays.asList(IGNIS, POTENTIA)), //Ад/Пламя
+    TEMPUS("tempus", 0xDAF7A6, Arrays.asList(SENSUS, MACHINA)); //Время МБ НАДО ПЕРМУТАТИО
 
     private String id;
     private int color;

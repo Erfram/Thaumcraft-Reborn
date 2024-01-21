@@ -5,11 +5,10 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import llama.thaumcraft.Thaumcraft;
 import llama.thaumcraft.items.ThaumcraftItems;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class BasicCategoryProvider extends CategoryProvider {
-    public BasicCategoryProvider(BookProvider parent) {
+public class BasicsCategoryProvider extends CategoryProvider {
+    public BasicsCategoryProvider(BookProvider parent) {
         super(parent, "basic");
     }
 
@@ -38,6 +37,6 @@ public class BasicCategoryProvider extends CategoryProvider {
         )
         .withIcon(ThaumcraftItems.THAUMONOMICON)
         .withBackgroundTextureZoomMultiplier(1f/2f)
-        .withBackground(new Identifier(Thaumcraft.MOD_ID, "textures/gui/basic_background.png"));
+        .withBackgroundParallaxLayer(new Identifier(Thaumcraft.MOD_ID, "textures/gui/basic_background.png"));
     }
 }

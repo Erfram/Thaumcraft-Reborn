@@ -9,7 +9,8 @@ import net.minecraft.util.Identifier;
 
 public class ThaumcraftItems {
     public static final Item CRYSTAL = registerItem("crystal", new CrystalItem(new FabricItemSettings()));
-    public static final Item THAUMONOMICON = registerItem("thaumonomicon", new Item(new FabricItemSettings()));
+    public static final Item THAUMONOMICON = registerItem("thaumonomicon", new ThaumonomiconItem(new FabricItemSettings()));
+    public static final Item SALIS_MUNDUS = registerItem("salis_mundus", new SalisMundus(new FabricItemSettings()));
 
     private static Item registerItem(String id, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(Thaumcraft.MOD_ID, id), item);
