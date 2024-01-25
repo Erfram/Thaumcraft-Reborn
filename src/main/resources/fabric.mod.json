@@ -21,7 +21,7 @@
 			"llama.thaumcraft.ThaumcraftClient"
 		],
 		"fabric-datagen": [
-			"llama.thaumcraft.ThaumcraftDataGenerator"
+          "llama.thaumcraft.datagen.ThaumcraftDataGenerator"
 		]
 	},
 	"mixins": [

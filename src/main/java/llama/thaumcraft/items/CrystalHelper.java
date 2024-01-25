@@ -20,7 +20,7 @@ public class CrystalHelper {
             ).styled(style -> style.withItalic(false))
         );
 
-        ((CrystalItem) stack.getItem()).appendTooltip(stack, null, new ArrayList<Text>(), TooltipContext.BASIC);
+        stack.getItem().appendTooltip(stack, null, new ArrayList<>(), TooltipContext.BASIC);
         return stack;
     }
 

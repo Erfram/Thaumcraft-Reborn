@@ -1,6 +1,7 @@
-package llama.thaumcraft;
+package llama.thaumcraft.datagen;
 
 import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
+import llama.thaumcraft.Thaumcraft;
 import llama.thaumcraft.datagen.ThaumcraftItemTagProvider;
 import llama.thaumcraft.datagen.Thaumonomicon;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;

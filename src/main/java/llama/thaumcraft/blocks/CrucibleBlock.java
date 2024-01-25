@@ -58,7 +58,9 @@ public class CrucibleBlock extends Block {
 
             return ActionResult.SUCCESS;
         } else if(haindItem.equals(Items.BUCKET)){
-             this.removeWater(player, hand, world, pos, state);
+            if(state.get(LEVEL) > 0){
+                this.removeWater(player, hand, world, pos, state);
+            }
 
             return ActionResult.SUCCESS;
         }
@@ -98,7 +100,11 @@ public class CrucibleBlock extends Block {
         this.addWaterLayer(world, state, pos, -1);
 
         if(!player.isCreative()) {
-            player.setStackInHand(hand, Items.BUCKET.getDefaultStack());
+            if(player.getStackInHand(hand).getCount() == 1){
+                player.setStackInHand(hand, Items.WATER_BUCKET.getDefaultStack());
+            } else if (player.getStackInHand(hand).getCount() > 1){
+                player.giveItemStack(Items.WATER_BUCKET.getDefaultStack());
+            }
         }
 
         world.playSound(pos.getX(), pos.getY(), pos.getZ(),
