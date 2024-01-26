@@ -14,10 +14,10 @@ public class CrystalHelper {
         stack.setNbt(buildType(aspect));
         String aspectName = aspect.getName().substring(0, 1).toUpperCase().concat(aspect.getName().substring(1));
         stack.setCustomName(
-            Text.translatable(
-                "item.thaumcraft.crystal",
-                Text.translatable(aspectName).styled(style -> style.withColor(aspect.getColor()))
-            ).styled(style -> style.withItalic(false))
+                Text.translatable(
+                        "item.thaumcraft.crystal",
+                        Text.translatable(aspectName).styled(style -> style.withColor(aspect.getColor()))
+                ).styled(style -> style.withItalic(false))
         );
 
         stack.getItem().appendTooltip(stack, null, new ArrayList<>(), TooltipContext.BASIC);

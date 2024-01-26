@@ -1,5 +1,6 @@
 package llama.thaumcraft.tooltip;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import llama.thaumcraft.Aspects;
 import llama.thaumcraft.Thaumcraft;
 import llama.thaumcraft.config.AspectRegistry;
@@ -14,6 +15,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 public class AspectTooltipComponent implements TooltipComponent {
@@ -77,7 +79,9 @@ public class AspectTooltipComponent implements TooltipComponent {
                     xText = xOffset + 10;
                 }
 
+                RenderSystem.enableBlend();
                 renderImage(context, aspect.getName(), xOffset, y - 2 + 20 * lineCount);
+                RenderSystem.disableBlend();
                 context.drawText(MinecraftClient.getInstance().textRenderer, String.valueOf(amount), xText, y + 6 + 20 * lineCount, 0xFFFFFF, true);
 
                 i++;
