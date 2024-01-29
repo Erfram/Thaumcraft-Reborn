@@ -1,8 +1,7 @@
-package llama.thaumcraft.config;
+package llama.thaumcraft.magic;
 
 import llama.thaumcraft.Aspects;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

@@ -1,16 +1,19 @@
 package llama.thaumcraft;
 
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import llama.thaumcraft.events.ItemSmeltingCrucibleCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
 public class EventHandler {
+    private static void onItemSmeltingCrucible() {
+        ItemSmeltingCrucibleCallback.EVENT.register((state, world, pos, entity) -> {
+            if(!world.isClient) {
+                //code...
+            }
 
-    private static void onItemTooltip() {
-        ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
-
+            return ActionResult.PASS;
         });
     }
     private static void onUseBlock() {
@@ -26,6 +29,6 @@ public class EventHandler {
         Thaumcraft.LOGGER.debug("Registering events, for: "+Thaumcraft.MOD_NAME);
 
         onUseBlock();
-        onItemTooltip();
+        onItemSmeltingCrucible();
     }
 }

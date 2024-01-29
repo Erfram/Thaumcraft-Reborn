@@ -1,13 +1,12 @@
 package llama.thaumcraft;
 
 import llama.thaumcraft.blocks.ThaumcraftBlocks;
-import llama.thaumcraft.config.AspectRegistry;
-import llama.thaumcraft.config.ItemAspects;
+import llama.thaumcraft.magic.AspectRegistry;
+import llama.thaumcraft.magic.ItemAspects;
 import llama.thaumcraft.items.ThaumcraftItemGroups;
 import llama.thaumcraft.items.ThaumcraftItems;
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.registry.Registries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

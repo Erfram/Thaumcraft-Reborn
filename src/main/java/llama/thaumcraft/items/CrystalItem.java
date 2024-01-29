@@ -1,11 +1,7 @@
 package llama.thaumcraft.items;
 
 import llama.thaumcraft.Aspects;
-import llama.thaumcraft.config.AspectRegistry;
-import llama.thaumcraft.tooltip.AspectTooltipComponent;
-import llama.thaumcraft.tooltip.AspectTooltipData;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.item.TooltipData;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -14,7 +10,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CrystalItem extends Item {
     public CrystalItem(Settings settings) {

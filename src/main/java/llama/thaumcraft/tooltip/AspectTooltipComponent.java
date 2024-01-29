@@ -3,7 +3,7 @@ package llama.thaumcraft.tooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
 import llama.thaumcraft.Aspects;
 import llama.thaumcraft.Thaumcraft;
-import llama.thaumcraft.config.AspectRegistry;
+import llama.thaumcraft.magic.AspectRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -11,11 +11,12 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
 
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AspectTooltipComponent implements TooltipComponent {
@@ -62,8 +63,14 @@ public class AspectTooltipComponent implements TooltipComponent {
                 return;
             }
 
+            Map<Aspects, Integer> sortedMap = new LinkedHashMap<>();
+
+            aspects.entrySet().stream()
+                    .sorted(Map.Entry.<Aspects, Integer>comparingByValue().reversed())
+                    .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
+
             int i = 0;
-            for (Map.Entry<Aspects, Integer> entry : aspects.entrySet()) {
+            for (Map.Entry<Aspects, Integer> entry : sortedMap.entrySet()) {
                 Aspects aspect = entry.getKey();
                 int amount = entry.getValue();
                 int lineCount = (int) Math.floor(i / 16);
@@ -78,6 +85,8 @@ public class AspectTooltipComponent implements TooltipComponent {
                 } else {
                     xText = xOffset + 10;
                 }
+
+
 
                 RenderSystem.enableBlend();
                 renderImage(context, aspect.getName(), xOffset, y - 2 + 20 * lineCount);

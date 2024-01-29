@@ -1,7 +1,6 @@
 package llama.thaumcraft;
 
 import llama.thaumcraft.blocks.ThaumcraftBlocks;
-import llama.thaumcraft.config.ItemAspects;
 import llama.thaumcraft.items.CrystalHelper;
 import llama.thaumcraft.items.ThaumcraftItems;
 import llama.thaumcraft.tooltip.AspectTooltipComponent;
@@ -14,8 +13,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
-
-import java.util.HashMap;
 
 @Environment(value = EnvType.CLIENT)
 public class ThaumcraftClient implements ClientModInitializer {

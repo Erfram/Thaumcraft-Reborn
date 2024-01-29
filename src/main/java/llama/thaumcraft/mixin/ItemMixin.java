@@ -1,7 +1,7 @@
 package llama.thaumcraft.mixin;
 
 import llama.thaumcraft.Aspects;
-import llama.thaumcraft.config.AspectRegistry;
+import llama.thaumcraft.magic.AspectRegistry;
 import llama.thaumcraft.tooltip.AspectTooltipData;
 import net.minecraft.client.item.TooltipData;
 import net.minecraft.item.Item;

@@ -1,24 +1,18 @@
 package llama.thaumcraft.blocks;
 
+import llama.thaumcraft.events.ItemSmeltingCrucibleCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeManager;
-import net.minecraft.registry.DefaultedRegistry;
-import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -45,14 +39,6 @@ public class CrucibleBlock extends Block {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         Item haindItem = player.getStackInHand(hand).getItem();
 
-        DefaultedRegistry<Item> items = Registries.ITEM;
-
-        for (Item item : items) {
-            if(world.getRecipeManager().get(new Identifier("minecraft:"+item)).isEmpty()){
-                System.out.println(item.getDefaultStack().getName());
-            }
-        }
-
         if (haindItem.equals(Items.WATER_BUCKET)) {
             this.fill(player, hand, world, pos, state);
 
@@ -70,7 +56,11 @@ public class CrucibleBlock extends Block {
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if(isEntityTouchingFluid(state, pos, entity)) {
             if(entity instanceof ItemEntity) {
-                this.consumeItem(entity);
+                ActionResult result = ItemSmeltingCrucibleCallback.EVENT.invoker().interact(state, world, pos, ((ItemEntity)entity));
+
+                if(result != ActionResult.FAIL) {
+                    this.consumeItem(entity);
+                }
             } else if (entity.isOnFire() || !(entity.getFireTicks() <= 0)) {
                 this.addWaterLayer(world, state, pos, -1);
                 entity.setFireTicks(0);
