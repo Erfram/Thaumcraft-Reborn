@@ -1,0 +1,18 @@
+{
+  "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "background_height": 512,
+  "background_parallax_layers": [
+    {
+      "background": "thaumcraft:textures/gui/basic_background.png"
+    }
+  ],
+  "background_texture_zoom_multiplier": 0.5,
+  "background_width": 512,
+  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "icon": {
+    "item": "thaumcraft:thaumonomicon"
+  },
+  "name": "book.thaumcraft.thaumonomicon.basic.name",
+  "show_category_button": true,
+  "sort_number": -1
+}
