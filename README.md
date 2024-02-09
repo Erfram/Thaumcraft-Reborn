@@ -7,7 +7,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/license/Erfram/Thaumcraft-Reborn.svg" alt="License">
   <img src="https://img.shields.io/github/stars/Erfram/Thaumcraft-Reborn.svg" alt="Stars">
-  <img src="https://img.shields.io/github/stargazers/Erfram/Thaumcraft-Reborn.svg" alt="Star zers">
+  <img src="https://img.shields.io/github/stargazers/Erfram/Thaumcraft-Reborn.svg" alt="Starzers">
 </p>
 
 <p align="center">Thaumcraft Reborn — это перерождение классической магической модификации для игры Minecraft, добавляющее новые измерения волшебства и таинственности в мир.</p>
