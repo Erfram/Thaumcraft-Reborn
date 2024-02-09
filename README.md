@@ -5,7 +5,7 @@
 <h1 align="center">Thaumcraft Reborn</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/username/repo.svg" alt="License">
+  <img src="https://img.shields.io/github/license/username/Thaumcraft-Reborn.svg" alt="License">
   <img src="https://img.shields.io/github/issues/username/repo.svg" alt="Issues">
   <img src="https://img.shields.io/github/stars/username/repo.svg" alt="Stars">
 </p>
