@@ -1,6 +1,41 @@
-# Thaumcraft Reborn
-This mod is a remake of the thaumcraft mod for newer versions
+# <center>Thaumcraft Reborn</center>
 
-## Special thanks
+<p align="center">
+  <img src="https://example.com/thaumcraft_logo.png" alt="Thaumcraft Logo">
+</p>
 
-Special thanks to [Demon](https://github.com/hackerdemon666), [mrkto](https://github.com/MRkto) [IronLP93](https://www.youtube.com/channel/UCW_CdcsrscmZVIu5bkTd_qQ) for helping and supporting!
+Добро пожаловать в репозиторий Thaumcraft Reborn! Этот проект представляет собой магическую модификацию для игры Minecraft, которая добавляет волшебство и мистику в игровой мир.
+
+## О проекте
+
+Thaumcraft Reborn - это модификация для Minecraft, разработанная с целью расширить игровой процесс и добавить волшебные элементы. В этом репозитории вы найдете исходный код мода, а также документацию и информацию о его функциях.
+
+## Особенности
+
+- Добавляет систему магии и заклинаний в Minecraft.
+- Вводит новые предметы, блоки и механики игры.
+- Предоставляет игрокам возможность исследовать таинственные аспекты магии.
+
+## Установка
+
+Чтобы установить Thaumcraft Reborn, выполните следующие шаги:
+
+1. Скачайте модификацию с официального гитхаба Thaumcraft Reborn.
+2. Поместите скачанный файл в папку `mods` вашего сервера или клиента Minecraft.
+3. Запустите игру и наслаждайтесь новым контентом!
+
+## Содействие
+
+Мы приветствуем ваши предложения и исправления ошибок! Если у вас есть какие-либо идеи по улучшению Thaumcraft Reborn, пожалуйста, откройте новый issue или отправьте pull request.
+
+## Лицензия
+
+Thaumcraft Reborn распространяется под лицензией [MIT](LICENSE). Подробнее о правах и ограничениях см. в файле лицензии.
+
+## Связь
+
+Если у вас есть вопросы или предложения, пожалуйста, свяжитесь с нами по электронной почте: example@example.com.
+
+Следите за обновлениями Thaumcraft Reborn в [официальном дискорде]([https://twitter.com/thaumcraft](https://discord.gg/rdT4D3wb2z)).
+
+Спасибо за ваш интерес к Thaumcraft Reborn!
