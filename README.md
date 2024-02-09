@@ -5,21 +5,21 @@
 <h1 align="center">Thaumcraft Reborn</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/Erfram/Thaumcraft-Reborn.svg?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/github/stars/Erfram/Thaumcraft-Reborn.svg?style=for-the-badge" alt="Stars">
+  <img src="https://img.shields.io/github/license/Erfram/Thaumcraft-Reborn.svg?style=for-the-badge&color=B0E99E&labelColor=302D41" alt="License">
+  <img src="https://img.shields.io/github/stars/Erfram/Thaumcraft-Reborn.svg?style=for-the-badge&color=d5c3f0&labelColor=302D41" alt="Stars">
+  <img src="https://img.shields.io/github/contributors/Erfram/Thaumcraft-Reborn.svg?style=for-the-badge&color=89c3f0&labelColor=302D41" alt="Contributors">
+  <img src="https://img.shields.io/discord/928575868643733535?style=for-the-badge&label=LAVA VERSE&logo=discord&color=99DDDF&logoColor=d9e0ee&labelColor=302D41" alt="Discord">
 </p>
 
-<p align="center">Thaumcraft Reborn — это перерождение классической магической модификации для игры Minecraft, добавляющее новые измерения волшебства и таинственности в мир.</p>
+<p align="center">Thaumcraft Reborn — это перерождение классической магической модификации для игры Minecraft.</p>
 
 ## О проекте
 
-Thaumcraft Reborn продолжает и расширяет традиции оригинального Thaumcraft, представляя новые элементы и механики, чтобы углубить ваш опыт игры.
+Thaumcraft Reborn продолжает и расширяет традиции оригинального Thaumcraft.
 
 ## Особенности
 
-- Новые магические заклинания и чары.
-- Расширенный ассортимент предметов и блоков.
-- Увлекательные исследования в мире магии.
+- TO/DO
 
 ## Установка
 
@@ -39,5 +39,5 @@ Thaumcraft Reborn распространяется под [лицензией MI
 
 Если у вас есть вопросы или предложения, не стесняйтесь связаться с нами по электронной почте: example@example.com.
 
-Будьте в курсе всех новостей Thaumcraft Reborn, подписавшись на нас в [Twitter](https://twitter.com/thaumcraft_reborn).
+Будьте в курсе всех новостей Thaumcraft Reborn, присоединившись к нам в [Discord](https://discord.gg/rdT4D3wb2z).
 </p>
