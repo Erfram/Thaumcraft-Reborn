@@ -36,8 +36,5 @@ Thaumcraft Reborn продолжает и расширяет традиции о
 Thaumcraft Reborn распространяется под [лицензией MIT](LICENSE).
 
 ## Связь
-
-Если у вас есть вопросы или предложения, не стесняйтесь связаться с нами по электронной почте: example@example.com.
-
 Будьте в курсе всех новостей Thaumcraft Reborn, присоединившись к нам в [Discord](https://discord.gg/rdT4D3wb2z).
 </p>
