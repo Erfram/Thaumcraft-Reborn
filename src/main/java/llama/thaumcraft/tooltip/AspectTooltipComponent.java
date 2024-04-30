@@ -1,7 +1,7 @@
 package llama.thaumcraft.tooltip;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import llama.thaumcraft.Aspects;
+import llama.thaumcraft.magic.Aspect;
 import llama.thaumcraft.Thaumcraft;
 import llama.thaumcraft.magic.AspectRegistry;
 import net.minecraft.client.MinecraftClient;
@@ -14,9 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AspectTooltipComponent implements TooltipComponent {
@@ -58,20 +56,20 @@ public class AspectTooltipComponent implements TooltipComponent {
         TooltipComponent.super.drawItems(textRenderer, x, y, context);
 
         if(Screen.hasShiftDown()){
-            Map<Aspects, Integer> aspects = AspectRegistry.getAspectsByItemStack(this.stack);
+            Map<Aspect, Integer> aspects = AspectRegistry.getAspectsByItemStack(this.stack);
             if(aspects == null) {
                 return;
             }
 
-            Map<Aspects, Integer> sortedMap = new LinkedHashMap<>();
+            Map<Aspect, Integer> sortedMap = new LinkedHashMap<>();
 
             aspects.entrySet().stream()
-                    .sorted(Map.Entry.<Aspects, Integer>comparingByValue().reversed())
+                    .sorted(Map.Entry.<Aspect, Integer>comparingByValue().reversed())
                     .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
 
             int i = 0;
-            for (Map.Entry<Aspects, Integer> entry : sortedMap.entrySet()) {
-                Aspects aspect = entry.getKey();
+            for (Map.Entry<Aspect, Integer> entry : sortedMap.entrySet()) {
+                Aspect aspect = entry.getKey();
                 int amount = entry.getValue();
                 int lineCount = (int) Math.floor(i / 16);
                 int xi = i - lineCount * 16;
@@ -85,8 +83,6 @@ public class AspectTooltipComponent implements TooltipComponent {
                 } else {
                     xText = xOffset + 10;
                 }
-
-
 
                 RenderSystem.enableBlend();
                 renderImage(context, aspect.getName(), xOffset, y - 2 + 20 * lineCount);

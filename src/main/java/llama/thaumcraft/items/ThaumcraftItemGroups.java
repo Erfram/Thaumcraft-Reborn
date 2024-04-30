@@ -1,6 +1,6 @@
 package llama.thaumcraft.items;
 
-import llama.thaumcraft.Aspects;
+import llama.thaumcraft.magic.Aspect;
 import llama.thaumcraft.Thaumcraft;
 import llama.thaumcraft.blocks.ThaumcraftBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -20,7 +20,7 @@ public class ThaumcraftItemGroups {
                 entries.add(ThaumcraftItems.SALIS_MUNDUS);
                 entries.add(ThaumcraftBlocks.CRUCIBLE);
 
-                for(Aspects aspect : Aspects.values()) {
+                for(Aspect aspect : Aspect.values()) {
                     entries.add(CrystalHelper.create(aspect));
                 }
             }).build()

@@ -1,6 +1,6 @@
 package llama.thaumcraft.items;
 
-import llama.thaumcraft.Aspects;
+import llama.thaumcraft.magic.Aspect;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import java.util.ArrayList;
 
 public class CrystalHelper {
-    public static ItemStack create(Aspects aspect) {
+    public static ItemStack create(Aspect aspect) {
         ItemStack stack = ThaumcraftItems.CRYSTAL.getDefaultStack();
         stack.setNbt(buildType(aspect));
         String aspectName = aspect.getName().substring(0, 1).toUpperCase().concat(aspect.getName().substring(1));
@@ -24,7 +24,7 @@ public class CrystalHelper {
         return stack;
     }
 
-    public static NbtCompound buildType(Aspects aspect) {
+    public static NbtCompound buildType(Aspect aspect) {
         NbtCompound nbt = new NbtCompound();
         nbt.putString("type", aspect.getName());
         return nbt;
@@ -32,6 +32,6 @@ public class CrystalHelper {
 
     public static int getColor(ItemStack stack) {
         NbtCompound nbtCompound = stack.getNbt();
-        return nbtCompound != null && !nbtCompound.contains("type", 99) ? Aspects.valueOf(nbtCompound.getString("type").toUpperCase()).getColor() : 16777215;
+        return nbtCompound != null && !nbtCompound.contains("type", 99) ? Aspect.valueOf(nbtCompound.getString("type").toUpperCase()).getColor() : 16777215;
     }
 }

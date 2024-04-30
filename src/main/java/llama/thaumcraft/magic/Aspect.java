@@ -1,9 +1,9 @@
-package llama.thaumcraft;
+package llama.thaumcraft.magic;
 
 import java.util.Arrays;
 import java.util.List;
 
-public enum Aspects {
+public enum Aspect {
     AER("aer", 0xFFFF7E, null), //ВОЗДУХ
     TERRA("terra", 0x56C000, null), //ЗЕМЛЯ
     IGNIS("ignis", 0xFF5A01, null), //ЗЕМЛЯ
@@ -50,9 +50,9 @@ public enum Aspects {
 
     private String id;
     private int color;
-    private List<Aspects> ingredients;
+    private List<Aspect> ingredients;
 
-    Aspects(String id, int color, List<Aspects> ingredients) {
+    Aspect(String id, int color, List<Aspect> ingredients) {
         this.id = id;
         this.color = color;
         this.ingredients = ingredients;
@@ -66,8 +66,8 @@ public enum Aspects {
         return this.color;
     }
 
-    public static Aspects findByColor(int color) {
-        for(Aspects aspect : Aspects.values()) {
+    public static Aspect findByColor(int color) {
+        for(Aspect aspect : Aspect.values()) {
             if(aspect.getColor() == color) {
                 return aspect;
             }
@@ -76,7 +76,7 @@ public enum Aspects {
         return null;
     }
 
-    public List<Aspects> getIngredients() {
+    public List<Aspect> getIngredients() {
         return this.ingredients;
     };
 }

@@ -1,6 +1,6 @@
 package llama.thaumcraft.mixin;
 
-import llama.thaumcraft.Aspects;
+import llama.thaumcraft.magic.Aspect;
 import llama.thaumcraft.magic.AspectRegistry;
 import llama.thaumcraft.tooltip.AspectTooltipData;
 import net.minecraft.client.item.TooltipData;
@@ -22,7 +22,7 @@ public class ItemMixin {
     public Optional<TooltipData> getTooltipData(ItemStack stack) {
         AspectTooltipData data = new AspectTooltipData(stack);
 
-        Map<Aspects, Integer> aspects = AspectRegistry.getAspectsByItemStack(stack);
+        Map<Aspect, Integer> aspects = AspectRegistry.getAspectsByItemStack(stack);
 
         if(aspects != null) {
             int aspectsCount = aspects.size();

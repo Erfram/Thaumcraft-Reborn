@@ -1,6 +1,6 @@
 package llama.thaumcraft.items;
 
-import llama.thaumcraft.Aspects;
+import llama.thaumcraft.magic.Aspect;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,7 +18,7 @@ public class CrystalItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        Aspects aspect = Aspects.findByColor(CrystalHelper.getColor(stack));
+        Aspect aspect = Aspect.findByColor(CrystalHelper.getColor(stack));
         String aspectName = aspect.getName().substring(0, 1).toUpperCase().concat(aspect.getName().substring(1));
         tooltip.add(Text.translatable(
                 "item.thaumcraft.crystal.tooltip",
