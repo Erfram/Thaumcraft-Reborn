@@ -1,13 +1,19 @@
 package llama.thaumcraft.blocks;
 
+import llama.thaumcraft.blocks.entity.CrucibleBlockEntity;
 import llama.thaumcraft.events.ItemSmeltingCrucibleCallback;
+import llama.thaumcraft.magic.Aspect;
+import llama.thaumcraft.magic.AspectRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -16,14 +22,18 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class CrucibleBlock extends Block {
+import java.util.Map;
+
+public class CrucibleBlock extends Block implements BlockEntityProvider {
     public static final IntProperty LEVEL = IntProperty.of("level", 0, 3);
     public CrucibleBlock(Settings settings) {
         super(settings);
@@ -53,23 +63,36 @@ public class CrucibleBlock extends Block {
         return ActionResult.PASS;
     }
 
+    @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if(isEntityTouchingFluid(state, pos, entity)) {
             if(entity instanceof ItemEntity) {
                 ActionResult result = ItemSmeltingCrucibleCallback.EVENT.invoker().interact(state, world, pos, ((ItemEntity)entity));
 
                 if(result != ActionResult.FAIL) {
-                    this.consumeItem(entity);
+                    ItemStack stack = ((ItemEntity)entity).getStack();
+                    CrucibleBlockEntity blockEntity = (CrucibleBlockEntity) world.getBlockEntity(pos);
+
+                    Map<Aspect, Integer> aspectsMap = AspectRegistry.getAspectsByItemStack(stack);
+
+                    if(aspectsMap != null) {
+                        for(Map.Entry<Aspect, Integer> entry : aspectsMap.entrySet()) {
+                            Aspect aspect = entry.getKey();
+                            int aspectCount = entry.getValue();
+
+                            if (aspectCount > 0) {
+                                blockEntity.setAspect(aspect, aspectCount * stack.getCount());
+                            }
+                        }
+                    }
+
+                    entity.setRemoved(Entity.RemovalReason.DISCARDED);
                 }
             } else if (entity.isOnFire() || !(entity.getFireTicks() <= 0)) {
                 this.addWaterLayer(world, state, pos, -1);
                 entity.setFireTicks(0);
             }
         }
-    }
-
-    public void consumeItem(Entity entity) {
-        entity.setRemoved(Entity.RemovalReason.DISCARDED);
     }
 
     public double getFluidHeight(BlockState state) {
@@ -135,16 +158,19 @@ public class CrucibleBlock extends Block {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
-        return VoxelShapes.union(
-                VoxelShapes.cuboid(0.0f, 0.1875f, 0.0f, 1.0f, 1.0f, 0.125f),
-                VoxelShapes.cuboid(0.0f, 0.1875f, 0.875f, 1.0f, 1.0f, 1.0f),
-                VoxelShapes.cuboid(0.875f, 0.1875f, 0.125f, 1.0f, 1.0f, 0.875f),
-                VoxelShapes.cuboid(0.0f, 0.1875f, 0.125f, 0.125f, 1.0f, 0.875f),
-                VoxelShapes.cuboid(0.0f, 0.0f, 0.0f, 0.1875f, 0.1875f, 0.1875f),
-                VoxelShapes.cuboid(0.8125f, 0.0f, 0.0f, 1.0f, 0.1875f, 0.1875f),
-                VoxelShapes.cuboid(0.8125f, 0.0f, 0.8125f, 1.0f, 0.1875f, 1.0f),
-                VoxelShapes.cuboid(0.0f, 0.0f, 0.8125f, 0.1875f, 0.1875f, 1.0f),
-                VoxelShapes.cuboid(0.125f, 0.1875f, 0.125f, 0.875f, 0.3125f, 0.875f)
+        return VoxelShapes.combineAndSimplify(
+                VoxelShapes.fullCube(),
+                VoxelShapes.union(CrucibleBlock.createCuboidShape(0.0, 0.0, 4.0, 16.0, 3.0, 12.0),
+                        CrucibleBlock.createCuboidShape(4.0, 0.0, 0.0, 12.0, 3.0, 16.0),
+                        CrucibleBlock.createCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
+                        CrucibleBlock.createCuboidShape(2.0, 4.0, 2.0, 14.0, 16.0, 14.0)
+                ),
+                BooleanBiFunction.ONLY_FIRST
         );
+    }
+
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new CrucibleBlockEntity(pos, state);
     }
 }

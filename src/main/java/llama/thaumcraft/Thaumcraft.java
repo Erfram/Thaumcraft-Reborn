@@ -1,7 +1,7 @@
 package llama.thaumcraft;
 
 import llama.thaumcraft.blocks.ThaumcraftBlocks;
-import llama.thaumcraft.magic.AspectRegistry;
+import llama.thaumcraft.blocks.entity.ThaumcraftBlockEntities;
 import llama.thaumcraft.items.ThaumcraftItemGroups;
 import llama.thaumcraft.items.ThaumcraftItems;
 import net.fabricmc.api.ModInitializer;
@@ -18,12 +18,10 @@ public class Thaumcraft implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Welcome to "+MOD_NAME);
-
-		ThaumcraftItems.register();
 		ThaumcraftBlocks.register();
+		ThaumcraftBlockEntities.register();
+		ThaumcraftItems.register();
 		ThaumcraftItemGroups.register();
-		AspectRegistry.register();
 		EventHandler.register();
 	}
 }

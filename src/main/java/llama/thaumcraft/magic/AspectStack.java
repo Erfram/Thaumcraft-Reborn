@@ -18,6 +18,13 @@ public class AspectStack {
         this.aspects = mapAspects;
     }
 
+    public AspectStack add(Aspect aspect, int value) {
+        LinkedHashMap<Aspect, Integer> newAspects = new LinkedHashMap<>(this.aspects);
+        newAspects.put(aspect, this.aspects.get(aspect) + value);
+
+        return new AspectStack(newAspects);
+    }
+
     public AspectStack with(Aspect aspect, int value) {
         LinkedHashMap<Aspect, Integer> newAspects = new LinkedHashMap<>(this.aspects);
         newAspects.put(aspect, value);
@@ -28,6 +35,13 @@ public class AspectStack {
     public AspectStack with(Aspect aspect) {
         LinkedHashMap<Aspect, Integer> newAspects = new LinkedHashMap<>(this.aspects);
         newAspects.put(aspect, 1);
+
+        return new AspectStack(newAspects);
+    }
+
+    public AspectStack without(Aspect aspect) {
+        LinkedHashMap<Aspect, Integer> newAspects = new LinkedHashMap<>(this.aspects);
+        newAspects.remove(aspect);
 
         return new AspectStack(newAspects);
     }

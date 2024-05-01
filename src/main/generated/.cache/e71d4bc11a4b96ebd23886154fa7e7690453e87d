@@ -1,2 +1,12 @@
-// 1.20.4	2024-01-20T01:38:12.8104831	Thaumcraft Reborn/Tags for minecraft:item
+// 1.20.4	2024-05-01T18:34:23.2307297	Thaumcraft Reborn/Tags for minecraft:item
+2947e6b33c60c4c6ce77fc80f1a70d42e7483b93 data\thaumcraft\tags\items\base_polished_stone_stairs.json
+c42430f03e40ceddab2f2c9fc1f950d70ee0a32a data\thaumcraft\tags\items\base_stone_slab.json
+4872c42bc6108bf68ee553b1e1090a614f61878a data\thaumcraft\tags\items\stripped_logs.json
+aee5ed20f775c06603633a34c667e31d22618b4d data\thaumcraft\tags\items\stripped_woods.json
+ac7eba19f95f388ae58e58d680271515d50b5081 data\thaumcraft\tags\items\woods.json
+7c533ed69490329dc5478b082675819774b3cb7c data\thaumcraft\tags\items\shulker_boxes.json
+87df0bc76f503eda78e669cd6f83e813b2f0968b data\thaumcraft\tags\items\base_polished_stone.json
+4100007b40ddf651df5174085c4b345d8416765c data\thaumcraft\tags\items\base_stone_stairs.json
+1e3514d3ef8b447482a31b01d7d2e2b8a0502508 data\thaumcraft\tags\items\base_stone_wall.json
+522302561cb5e4a86186b8c7a6f36eb3a9246c1d data\thaumcraft\tags\items\base_polished_stone_slab.json
 55c0a5c3f0aef7f2dd4044af060f7a1d3561af9d data\thaumcraft\tags\items\type.json
