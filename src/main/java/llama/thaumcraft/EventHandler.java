@@ -4,22 +4,16 @@ import llama.thaumcraft.events.ItemSmeltingCrucibleCallback;
 import llama.thaumcraft.magic.AspectRegistry;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-
-import java.util.List;
 
 public class EventHandler {
     private static void onItemSmeltingCrucible() {
         ItemSmeltingCrucibleCallback.EVENT.register((state, world, pos, entity) -> {
             if(!world.isClient) {
-                List<? extends PlayerEntity> players = world.getPlayers();
-
-                for(PlayerEntity player : players) {
-                    player.sendMessage(Text.of("Кинул предмет: " + entity.getStack().getItem().getName()));
-                }
+                world.getServer().getPlayerManager().broadcast(Text.of("Кинул предмет: " + Registries.ITEM.getId(entity.getStack().getItem())), false);
                 //code...
             }
 

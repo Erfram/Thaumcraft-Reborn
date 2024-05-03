@@ -15,26 +15,19 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Collections;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Set;
 
 public class AspectRegistry {
-    public static final Map<Map<Item, NbtCompound>, Map<Aspect, Integer>> ITEMS = new LinkedHashMap<>();
+    public static final Map<ItemStack, Map<Aspect, Integer>> ITEMS = new LinkedHashMap<>();
 
-    private void addAspectStackToItem(Item item, NbtCompound nbtCompound, AspectStack itemAspects) {
-        ITEMS.put(new LinkedHashMap<>(){{
-            put(item, nbtCompound);
-        }}, itemAspects.getAspects());
+    private void addAspectStackToItem(ItemStack itemStack, AspectStack itemAspects) {
+        ITEMS.put(itemStack, itemAspects.getAspects());
     }
 
     private void addAspectStackToItem(Item item, AspectStack itemAspects) {
-        ITEMS.put(new LinkedHashMap<>(){{
-            put(item, new NbtCompound());
-        }}, itemAspects.getAspects());
+        ITEMS.put(item.getDefaultStack(), itemAspects.getAspects());
     }
 
     private void addAspectStackToItemForTag(TagKey<Item> tagKey, AspectStack itemAspects) {
@@ -49,47 +42,18 @@ public class AspectRegistry {
         });
     }
 
+    public static Map<Aspect, Integer> getAspectsByItemStack(ItemStack itemStack) {
+        for (Map.Entry<ItemStack, Map<Aspect, Integer>> entry : ITEMS.entrySet()) {
+            if (ItemStack.canCombine(itemStack, entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+
+        return null;
+    }
+
     public static Map<Aspect, Integer> getAspectsByItem(Item item) {
-        Map<Item, NbtCompound> key = new ConcurrentHashMap<>(){{
-            put(item, new NbtCompound());
-        }};
-
-        return ITEMS.get(key);
-    }
-
-    public static List<NbtCompound> getNbtCompoundsByItem(Item item) {
-        List<NbtCompound> nbtList = new ArrayList<>();
-
-        for (Map.Entry<Map<Item, NbtCompound>, Map<Aspect, Integer>> entry : ITEMS.entrySet()) {
-
-            Map<Item, NbtCompound> itemMap = entry.getKey();
-
-            if (itemMap.containsKey(item)) {
-                nbtList.add(itemMap.get(item));
-            }
-        }
-
-        return nbtList;
-    }
-
-    public static Map<Aspect, Integer> getAspectsByItemStack(ItemStack stack) {
-        List<NbtCompound> nbts = getNbtCompoundsByItem(stack.getItem());
-
-        if(nbts.isEmpty()) {
-            return null;
-        }
-
-        if(stack.hasNbt()) {
-            return getAspectsByItem(stack.getItem());
-        }
-
-        Map<Item, NbtCompound> key = Collections.singletonMap(stack.getItem(), nbts.get(0));
-        for(NbtCompound nbt : nbts) {
-            if(hasAllKeys(nbt, stack.getNbt())) {
-                key = Collections.singletonMap(stack.getItem(), nbt);
-            }
-        }
-        return ITEMS.get(key);
+        return AspectRegistry.getAspectsByItemStack(item.getDefaultStack());
     }
 
     private static boolean hasAllKeys(NbtCompound first, NbtCompound second) {
@@ -177,6 +141,9 @@ public class AspectRegistry {
     private static final AspectStack DEFAULT_DIAMOND_ORE = new AspectStack(Aspect.DESIDERIUM, 15).with(Aspect.VITREUS, 15).with(Aspect.TERRA, 5);
 
     public void registryItems() {
+        for(Aspect aspect : Aspect.values()) {
+            this.addAspectStackToItem(CrystalHelper.create(aspect), new AspectStack(aspect));
+        }
         /////////////////////// - - - - - TAGS - - - - - //////////////////////////
         this.addAspectStackToItemForTag(ItemTags.SAPLINGS, DEFAULT_SAPLING);
         this.addAspectStackToItemForTag(ItemTags.LOGS, DEFAULT_LOG);
@@ -1053,9 +1020,5 @@ public class AspectRegistry {
                 .with(Aspect.AVERSIO, 32).with(Aspect.PRAEMUNIO, 33).with(Aspect.DESIDERIUM, 34)
                 .with(Aspect.EXANIMIS, 35).with(Aspect.BESTIA, 36).with(Aspect.HUMANUS, 37)
                 .with(Aspect.ECHO, 38).with(Aspect.INFERNO, 39).with(Aspect.TEMPUS, 40));
-
-        for(Aspect aspect : Aspect.values()) {
-            this.addAspectStackToItem(ThaumcraftItems.CRYSTAL, CrystalHelper.buildType(aspect), new AspectStack(aspect));
-        }
     }
 }

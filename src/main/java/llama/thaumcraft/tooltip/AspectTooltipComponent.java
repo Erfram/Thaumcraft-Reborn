@@ -67,29 +67,29 @@ public class AspectTooltipComponent implements TooltipComponent {
                     .sorted(Map.Entry.<Aspect, Integer>comparingByValue().reversed())
                     .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
 
-            int i = 0;
+            byte aspectIndex = 0;
             for (Map.Entry<Aspect, Integer> entry : sortedMap.entrySet()) {
                 Aspect aspect = entry.getKey();
-                int amount = entry.getValue();
-                int lineCount = (int) Math.floor(i / 16);
-                int xi = i - lineCount * 16;
+                int aspectAmount = Screen.hasControlDown() ? entry.getValue() * stack.getCount() : entry.getValue();
+                byte lineCount = (byte) Math.floor(aspectIndex / 16);
+                int columnIndex = aspectIndex - lineCount * 16;
 
-                int xOffset = x + 16 * xi + 2 * xi;
-                int xText;
-                if(amount >= 100) {
-                    xText = xOffset - 1;
-                }else if (amount >= 10) {
-                    xText = xOffset + 4;
+                int imageX = x + 16 * columnIndex + 2 * columnIndex;
+                int textX;
+                if(aspectAmount >= 100) {
+                    textX = imageX - 1;
+                }else if (aspectAmount >= 10) {
+                    textX = imageX + 4;
                 } else {
-                    xText = xOffset + 10;
+                    textX = imageX + 10;
                 }
 
                 RenderSystem.enableBlend();
-                renderImage(context, aspect.getName(), xOffset, y - 2 + 20 * lineCount);
+                renderImage(context, aspect.getName(), imageX, y - 2 + 20 * lineCount);
                 RenderSystem.disableBlend();
-                context.drawText(MinecraftClient.getInstance().textRenderer, String.valueOf(amount), xText, y + 6 + 20 * lineCount, 0xFFFFFF, true);
+                context.drawText(MinecraftClient.getInstance().textRenderer, String.valueOf(aspectAmount), textX, y + 6 + 20 * lineCount, 0xFFFFFF, true);
 
-                i++;
+                aspectIndex++;
             }
         }
     }

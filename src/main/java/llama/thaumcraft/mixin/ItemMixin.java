@@ -25,9 +25,9 @@ public class ItemMixin {
         Map<Aspect, Integer> aspects = AspectRegistry.getAspectsByItemStack(stack);
 
         if(aspects != null) {
-            int aspectsCount = aspects.size();
+            byte aspectsCount = (byte) aspects.size();
             int width;
-            int lineCount = (int) Math.floor(aspectsCount / 16);
+            byte lineCount = (byte) Math.floor(aspectsCount / 16);
             int height = 16 * (lineCount + 1) + 2 * lineCount;
             if(aspectsCount < 6) {
                 width = 16 * aspectsCount + 2 * (aspectsCount - 1);

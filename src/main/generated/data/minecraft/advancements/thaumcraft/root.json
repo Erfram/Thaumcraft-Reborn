@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "craft_salis_mundus": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thaumcraft:salis_mundus"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "thaumcraft:textures/gui/advancements/backgrounds/thaumcraft.png",
+    "description": {
+      "translate": "advancements.thaumcraft.salis_mundus.description"
+    },
+    "icon": {
+      "item": "thaumcraft:salis_mundus"
+    },
+    "title": {
+      "translate": "advancements.thaumcraft.salis_mundus.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft_salis_mundus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

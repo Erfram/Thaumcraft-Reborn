@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -15,34 +16,46 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Set;
 
 public class CrucibleBlock extends Block implements BlockEntityProvider {
-    public static final IntProperty LEVEL = IntProperty.of("level", 0, 3);
+    public static final IntProperty LEVEL = ThaumcraftProperties.LEVEL;
+    public static final BooleanProperty IS_BOILING = ThaumcraftProperties.IS_BOILING;
+    public static final BooleanProperty BOILED = ThaumcraftProperties.BOILED;
+
     public CrucibleBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(LEVEL, 0));
+        setDefaultState(getDefaultState()
+                .with(LEVEL, 0)
+                .with(IS_BOILING, false)
+                .with(BOILED, false)
+        );
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(LEVEL);
+        builder.add(LEVEL, IS_BOILING, BOILED);
     }
 
     @Override
@@ -53,8 +66,8 @@ public class CrucibleBlock extends Block implements BlockEntityProvider {
             this.fill(player, hand, world, pos, state);
 
             return ActionResult.SUCCESS;
-        } else if(haindItem.equals(Items.BUCKET)){
-            if(state.get(LEVEL) > 0){
+        } else if (haindItem.equals(Items.BUCKET)) {
+            if (state.get(LEVEL) > 0) {
                 this.removeWater(player, hand, world, pos, state);
             }
 
@@ -64,43 +77,78 @@ public class CrucibleBlock extends Block implements BlockEntityProvider {
     }
 
     @Override
+    public boolean hasRandomTicks(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if(!world.isClient()) {
+            random.nextInt(1);
+            this.scheduledTick(state, world, pos, random);
+        }
+    }
+
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        CrucibleBlockEntity crucibleBlockEntity = (CrucibleBlockEntity) world.getBlockEntity(pos);
+
+        crucibleBlockEntity.addBoilingPercentage(1);
+        world.getServer().getPlayerManager().broadcast(Text.of(String.valueOf(crucibleBlockEntity.getBoilingPercentage())), false);
+    }
+
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        Set<Block> hotBlocks = Set.of(Blocks.CAMPFIRE, Blocks.SOUL_CAMPFIRE, Blocks.FIRE, Blocks.SOUL_FIRE, Blocks.LAVA);
+        BlockState sourceBlockState = world.getBlockState(sourcePos);
+        sourceBlock = sourceBlockState.getBlock();
+
+        boolean isBoiling = false;
+
+        if (pos.down().equals(sourcePos) && hotBlocks.contains(sourceBlock)) {
+            isBoiling = sourceBlockState.contains(Properties.LIT) ? sourceBlockState.get(Properties.LIT) : true;
+        }
+
+        this.setBoiling(world, pos, state, isBoiling);
+        world.getServer().getPlayerManager().broadcast(Text.of(String.valueOf(isBoiling)), false);
+    }
+
+    @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if(isEntityTouchingFluid(state, pos, entity)) {
-            if(entity instanceof ItemEntity) {
-                ActionResult result = ItemSmeltingCrucibleCallback.EVENT.invoker().interact(state, world, pos, ((ItemEntity)entity));
+        if (isEntityTouchingFluid(state, pos, entity) && entity instanceof ItemEntity) {
+            ActionResult result = ItemSmeltingCrucibleCallback.EVENT.invoker().interact(state, world, pos, ((ItemEntity) entity));
 
-                if(result != ActionResult.FAIL) {
-                    ItemStack stack = ((ItemEntity)entity).getStack();
-                    CrucibleBlockEntity blockEntity = (CrucibleBlockEntity) world.getBlockEntity(pos);
+            if (result != ActionResult.FAIL) {
+                ItemStack stack = ((ItemEntity) entity).getStack();
+                CrucibleBlockEntity crucibleBlockEntity = (CrucibleBlockEntity) world.getBlockEntity(pos);
 
-                    Map<Aspect, Integer> aspectsMap = AspectRegistry.getAspectsByItemStack(stack);
+                Map<Aspect, Integer> aspectsMap = AspectRegistry.getAspectsByItemStack(stack);
 
-                    if(aspectsMap != null) {
-                        for(Map.Entry<Aspect, Integer> entry : aspectsMap.entrySet()) {
-                            Aspect aspect = entry.getKey();
-                            int aspectCount = entry.getValue();
+                if (aspectsMap != null) {
+                    for (Map.Entry<Aspect, Integer> entry : aspectsMap.entrySet()) {
+                        Aspect aspect = entry.getKey();
+                        int aspectCount = entry.getValue();
 
-                            if (aspectCount > 0) {
-                                blockEntity.setAspect(aspect, aspectCount * stack.getCount());
-                            }
+                        if (aspectCount > 0) {
+                            crucibleBlockEntity.setAspect(aspect, aspectCount * stack.getCount());
                         }
                     }
-
-                    entity.setRemoved(Entity.RemovalReason.DISCARDED);
                 }
-            } else if (entity.isOnFire() || !(entity.getFireTicks() <= 0)) {
-                this.addWaterLayer(world, state, pos, -1);
-                entity.setFireTicks(0);
+
+                entity.setRemoved(Entity.RemovalReason.DISCARDED);
             }
+        } else if (entity.isOnFire() || !(entity.getFireTicks() <= 0)) {
+            this.addWaterLayer(world, state, pos, -1);
+            entity.setFireTicks(0);
         }
     }
 
     public double getFluidHeight(BlockState state) {
         return switch (state.get(LEVEL)) {
-            case(0) -> 0.0;
-            case(1) -> 0.1;
-            case(2) -> 0.32;
-            case(3) -> 0.6;
+            case (0) -> 0.0;
+            case (1) -> 0.1;
+            case (2) -> 0.32;
+            case (3) -> 0.6;
             default -> throw new IllegalStateException("Unexpected value: " + state.get(LEVEL));
         };
     }
@@ -112,10 +160,10 @@ public class CrucibleBlock extends Block implements BlockEntityProvider {
     public void removeWater(PlayerEntity player, Hand hand, World world, BlockPos pos, BlockState state) {
         this.addWaterLayer(world, state, pos, -1);
 
-        if(!player.isCreative()) {
-            if(player.getStackInHand(hand).getCount() == 1){
+        if (!player.isCreative()) {
+            if (player.getStackInHand(hand).getCount() == 1) {
                 player.setStackInHand(hand, Items.WATER_BUCKET.getDefaultStack());
-            } else if (player.getStackInHand(hand).getCount() > 1){
+            } else if (player.getStackInHand(hand).getCount() > 1) {
                 player.giveItemStack(Items.WATER_BUCKET.getDefaultStack());
             }
         }
@@ -129,31 +177,35 @@ public class CrucibleBlock extends Block implements BlockEntityProvider {
     }
 
     public void fill(PlayerEntity player, Hand hand, World world, BlockPos pos, BlockState state) {
-        if(!player.isCreative()){
+        if (!player.isCreative()) {
             player.setStackInHand(hand, Items.BUCKET.getDefaultStack());
         }
         world.playSound(pos.getX(), pos.getY(), pos.getZ(),
-            SoundEvent.of(new Identifier("minecraft:item.bucket.empty")),
-            SoundCategory.PLAYERS,
-            1, 1,
-            true
+                SoundEvent.of(new Identifier("minecraft:item.bucket.empty")),
+                SoundCategory.PLAYERS,
+                1, 1,
+                true
         );
 
         this.addWaterLayer(world, state, pos, 1);
     }
 
+    public void setBoiling(World world, BlockPos pos, BlockState state, boolean boiling) {
+        world.setBlockState(pos, state.with(IS_BOILING, boiling), Block.NOTIFY_ALL);
+    }
+
     public void addWaterLayer(World world, BlockState state, BlockPos pos, int layer) {
-        world.setBlockState(pos, state.with(LEVEL, Math.min(Math.max(state.get(LEVEL) + layer, 0), 3)));
+        world.setBlockState(pos, state.with(LEVEL, Math.min(Math.max(state.get(LEVEL) + layer, 0), Block.NOTIFY_ALL)));
     }
 
     public void setWaterLayer(World world, BlockState state, BlockPos pos, int layer) {
-        if(layer <= 3 && layer >= 0){
+        if (layer <= 3 && layer >= 0) {
             world.setBlockState(pos, state.with(LEVEL, layer));
         }
     }
 
     public boolean isEntityTouchingFluid(BlockState state, BlockPos pos, Entity entity) {
-        return entity.getY() < (double)pos.getY() + this.getFluidHeight(state) && entity.getBoundingBox().maxY > (double)pos.getY() + 0.25;
+        return entity.getY() < (double) pos.getY() + this.getFluidHeight(state) && entity.getBoundingBox().maxY > (double) pos.getY() + 0.25;
     }
 
     @Override

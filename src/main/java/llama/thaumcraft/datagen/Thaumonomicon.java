@@ -10,13 +10,6 @@ import net.minecraft.data.DataOutput;
 import net.minecraft.util.Identifier;
 
 public class Thaumonomicon extends BookProvider {
-    /**
-     * @param bookId
-     * @param packOutput
-     * @param modid
-     * @param defaultLang  The LanguageProvider to fill with this book provider. IMPORTANT: the Languag Provider needs to be added to the DataGenerator AFTER the BookProvider.
-     * @param translations
-     */
     public Thaumonomicon(String bookId, DataOutput packOutput, String modid, ModonomiconLanguageProvider defaultLang, ModonomiconLanguageProvider... translations) {
         super(bookId, packOutput, modid, defaultLang, translations);
     }
