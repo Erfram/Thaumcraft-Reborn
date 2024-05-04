@@ -40,7 +40,7 @@ public class ThaumcraftDataGenerator implements DataGeneratorEntrypoint {
 		public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
 			AdvancementEntry rootAdvancement = Advancement.Builder.create()
 					.display(
-							ThaumcraftItems.SALIS_MUNDUS, // The display icon
+							ThaumcraftItems.SALIS_MUNDUS,
 							Text.translatable("advancements.thaumcraft.salis_mundus.title"),
 							Text.translatable("advancements.thaumcraft.salis_mundus.description"),
 							new Identifier(Thaumcraft.MOD_ID, "textures/gui/advancements/backgrounds/thaumcraft.png"),

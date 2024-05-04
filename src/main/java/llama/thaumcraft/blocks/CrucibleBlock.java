@@ -10,6 +10,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,6 +37,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Set;
@@ -76,15 +79,22 @@ public class CrucibleBlock extends Block implements BlockEntityProvider {
         return ActionResult.PASS;
     }
 
+    @Nullable
     @Override
-    public boolean hasRandomTicks(BlockState state) {
-        return true;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        if (world.isClient()) return null;
+        return (world1, blockPos, blockState, blockEntity)->{
+            if (blockEntity instanceof CrucibleBlockEntity crucibleBlockEntity) {
+                crucibleBlockEntity.addBoilingPercentage(1);
+                world.getServer().getPlayerManager().broadcast(Text.of(String.valueOf(crucibleBlockEntity.getBoilingPercentage())), false);
+            }
+        };
     }
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if(!world.isClient()) {
-            random.nextInt(1);
+            random.nextDouble();
             this.scheduledTick(state, world, pos, random);
         }
     }

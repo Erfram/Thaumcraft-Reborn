@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 public class ThaumcraftBlocks {
     public static final Block CRUCIBLE = registerBlock("crucible",
-            new CrucibleBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.STONE).nonOpaque()));
+            new CrucibleBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).sounds(BlockSoundGroup.STONE).nonOpaque().ticksRandomly()));
 
     private static Block registerBlock(String id, Block block) {
         registerBlockItem(id, block);
